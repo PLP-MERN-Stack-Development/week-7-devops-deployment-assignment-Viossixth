@@ -3,6 +3,7 @@ import axios from 'axios';
 import BugItem from '../../BugItem';
 import BugForm from '../../BugForm';
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function BugList() {
   const [bugs, setBugs] = useState([]);
