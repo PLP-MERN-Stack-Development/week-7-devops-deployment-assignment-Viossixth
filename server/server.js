@@ -8,11 +8,16 @@ const PORT = process.env.PORT || 5000;
 const errorHandler = require('./middleware/errorHandler');
 const bugRoutes = require('./routes/bugs');
 
+const helmet = require('helmet');
+app.use(helmet());
+
+
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+   maxPoolSize: 10
 })
 .then(() => console.log('✅ MongoDB connected'))
 .catch(err => {
