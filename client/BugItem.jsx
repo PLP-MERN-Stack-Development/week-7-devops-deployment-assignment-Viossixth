@@ -4,7 +4,7 @@ export default function BugItem({ bug, onBugUpdated, onBugDeleted }) {
   const handleStatusChange = async (e) => {
     const newStatus = e.target.value;
     try {
-      const res = await axios.patch(`http://localhost:5000/bugs/${bug._id}`, { status: newStatus });
+    const res = await axios.patch(`${API_URL}/bugs/${bug._id}`, { status: newStatus });
       onBugUpdated(res.data);
     } catch (err) {
       alert('Failed to update status');
@@ -14,7 +14,7 @@ export default function BugItem({ bug, onBugUpdated, onBugDeleted }) {
   const handleDelete = async () => {
     if (!window.confirm('Delete this bug?')) return;
     try {
-      await axios.delete(`http://localhost:5000/bugs/${bug._id}`);
+      await axios.delete(`${API_URL}/bugs/${bug._id}`);
       onBugDeleted(bug._id);
     } catch (err) {
       alert('Failed to delete bug');

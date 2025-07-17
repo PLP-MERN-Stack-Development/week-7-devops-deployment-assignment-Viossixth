@@ -11,10 +11,11 @@ export default function BugForm({ onBugAdded }) {
     if (!title.trim()) return alert('Title is required');
 
     try {
-      const res = await axios.post('http://localhost:5000/bugs', { title, description });
-      onBugAdded(res.data);
-      setTitle('');
-      setDescription('');
+const API_URL = import.meta.env.VITE_API_URL;
+const res = await axios.post(`${API_URL}/bugs`, { title, description });
+onBugAdded(res.data);
+setTitle('');
+setDescription('');
     } catch (err) {
       alert('Failed to add bug');
       console.error(err);
