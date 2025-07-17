@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export default function BugItem({ bug, onBugUpdated, onBugDeleted }) {
   const handleStatusChange = async (e) => {
     const newStatus = e.target.value;
