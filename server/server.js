@@ -24,9 +24,20 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.json());
 
 // ✅ Apply CORS and JSON middleware BEFORE any routes
+const allowedOrigins = [
+  'https://wss-qnnnp6c6s-viossixths-projects.vercel.app',
+  'http://localhost:5173'
+];
+
 app.use(cors({
-  origin: ['https://wss-qnnnp6c6s-viossixths-projects.vercel.app','https://week-7-devops-deployment-assignment-m6x1.onrender.com'], 
-  methods: ['GET', 'POST', 'PUT', 'PATCH','DELETE'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   credentials: true,
 }));
 
@@ -41,9 +52,6 @@ app.get('/', (req, res) => {
 // ✅ Error handler LAST
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 module.exports = app;
 
