@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 
 
 import ErrorBoundary from './components/ErrorBoundary';
-import BugList from './components/buglist';
+import BugList from './components/BugList';
 
 function App() {
   return (
