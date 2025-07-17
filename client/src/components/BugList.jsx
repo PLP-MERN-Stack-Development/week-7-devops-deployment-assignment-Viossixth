@@ -4,6 +4,7 @@ import BugItem from '../../BugItem';
 import BugForm from '../../BugForm';
 
 const API_URL = import.meta.env.VITE_API_URL;
+console.log('Using API_URL:', API_URL);
 
 export default function BugList() {
   const [bugs, setBugs] = useState([]);

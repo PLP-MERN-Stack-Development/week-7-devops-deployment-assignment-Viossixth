@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+const API_URL = import.meta.env.VITE_API_URL;
+console.log('Using API_URL:', API_URL);
 
 export default function BugForm({ onBugAdded }) {
   const [title, setTitle] = useState('');
@@ -11,11 +13,10 @@ export default function BugForm({ onBugAdded }) {
     if (!title.trim()) return alert('Title is required');
 
     try {
-const API_URL = import.meta.env.VITE_API_URL;
-const res = await axios.post(`${API_URL}/bugs`, { title, description });
-onBugAdded(res.data);
-setTitle('');
-setDescription('');
+      const res = await axios.post(`${API_URL}/bugs`, { title, description });
+      onBugAdded(res.data);
+      setTitle('');
+      setDescription('');
     } catch (err) {
       alert('Failed to add bug');
       console.error(err);
