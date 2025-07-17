@@ -25,7 +25,7 @@ app.use(express.json());
 
 // ✅ Apply CORS and JSON middleware BEFORE any routes
 app.use(cors({
-  origin: ['https://wss-qnnnp6c6s-viossixths-projects.vercel.app'], 
+  origin: ['https://wss-qnnnp6c6s-viossixths-projects.vercel.app','https://week-7-devops-deployment-assignment-m6x1.onrender.com'], 
   methods: ['GET', 'POST', 'PUT', 'PATCH','DELETE'],
   credentials: true,
 }));
