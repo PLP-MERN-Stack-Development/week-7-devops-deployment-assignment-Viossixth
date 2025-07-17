@@ -6,6 +6,8 @@ import { render, screen } from '@testing-library/react'
 import ErrorBoundary from './components/ErrorBoundary';
 import BugList from './components/BugList';
 
+axios.get(`${import.meta.env.VITE_API_URL}/bugs`)
+
 function App() {
   return (
     <div className="container">
