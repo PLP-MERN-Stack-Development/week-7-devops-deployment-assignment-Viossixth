@@ -26,6 +26,8 @@ export default function BugList() {
       }
     };
 
+    console.log('API URL:', API_URL);
+
     fetchBugs();
 
     return () => {
