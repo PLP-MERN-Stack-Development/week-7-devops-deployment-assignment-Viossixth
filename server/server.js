@@ -26,10 +26,12 @@ app.use(express.json());
 
 // ✅ Apply CORS and JSON middleware BEFORE any routes
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['https://week-7-devops-deployment-assignment-m6x1.onrender.com', 'http://localhost:3000'], 
   methods: ['GET', 'POST', 'PUT', 'PATCH','DELETE'],
   credentials: true,
 }));
+
+
 
 
 // ✅ Define your routes
