@@ -25,7 +25,7 @@ app.use(express.json());
 
 // ✅ Apply CORS and JSON middleware BEFORE any routes
 const allowedOrigins = [
-  'https://wss-qnnnp6c6s-viossixths-projects.vercel.app',
+  'https://wss-edba4p6ew-viossixths-projects.vercel.app',
   'http://localhost:5173'
 ];
 
@@ -34,12 +34,14 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error('Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   credentials: true,
 }));
+
 
 // ✅ Define your routes
 app.use('/bugs', bugRoutes);
