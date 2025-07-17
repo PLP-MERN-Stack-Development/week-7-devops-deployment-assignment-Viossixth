@@ -11,7 +11,6 @@ const bugRoutes = require('./routes/bugs');
 const helmet = require('helmet');
 app.use(helmet());
 
-
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -30,9 +29,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH','DELETE'],
   credentials: true,
 }));
-
-
-
 
 // ✅ Define your routes
 app.use('/bugs', bugRoutes);
