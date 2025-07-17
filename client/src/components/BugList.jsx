@@ -4,35 +4,49 @@ import BugItem from '../../BugItem';
 import BugForm from '../../BugForm';
 
 const API_URL = import.meta.env.VITE_API_URL;
-console.log('Using API_URL:', API_URL);
 
 export default function BugList() {
   const [bugs, setBugs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+    const fetchBugs = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/bugs`);
+        if (isMounted) {
+          setBugs(response.data);
+          setError(null);
+        }
+      } catch (err) {
+        if (isMounted) setError('Failed to fetch bugs');
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
     fetchBugs();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const fetchBugs = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/bugs`);
-    setBugs(response.data);
-  } catch (error) {
-    console.error('Error fetching bugs:', error);
-  }
-};
-
   const handleBugAdded = (newBug) => {
-    setBugs([newBug, ...bugs]);
+    setBugs(prevBugs => [newBug, ...prevBugs]);
   };
 
   const handleBugUpdated = (updatedBug) => {
-    setBugs(bugs.map(b => (b._id === updatedBug._id ? updatedBug : b)));
+    setBugs(prevBugs => prevBugs.map(b => (b._id === updatedBug._id ? updatedBug : b)));
   };
 
   const handleBugDeleted = (deletedId) => {
-    setBugs(bugs.filter(b => b._id !== deletedId));
+    setBugs(prevBugs => prevBugs.filter(b => b._id !== deletedId));
   };
+
+  if (loading) return <p>Loading bugs...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div>
@@ -50,7 +64,6 @@ export default function BugList() {
           />
         ))
       )}
-     
     </div>
   );
 }
