@@ -13,13 +13,15 @@ export default function BugList() {
 
   const fetchBugs = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/bugs');
-      setBugs(res.data);
-    } catch (err) {
-      alert('Failed to fetch bugs');
-      console.error(err);
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${API_URL}/bugs`);
+      const data = await response.json();
+      setBugs(data);
+    } catch (error) {
+      console.error('Error fetching bugs:', error);
     }
   };
+
 
   const handleBugAdded = (newBug) => {
     setBugs([newBug, ...bugs]);
