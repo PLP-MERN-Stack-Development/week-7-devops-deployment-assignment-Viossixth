@@ -54,6 +54,11 @@ app.get('/', (req, res) => {
 // ✅ Error handler LAST
 app.use(errorHandler);
 
+//Health check
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 
 module.exports = app;
 
