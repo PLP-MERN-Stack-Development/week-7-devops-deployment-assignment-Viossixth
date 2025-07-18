@@ -25,6 +25,8 @@ export default function BugList() {
         if (isMounted) setLoading(false);
       }
     };
+    
+    console.log('API_URL env value:', import.meta.env.VITE_API_URL);
 
     console.log('API URL:', API_URL);
 
